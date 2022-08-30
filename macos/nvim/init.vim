@@ -36,9 +36,6 @@ set nowrap "No Wrap lines
 set backspace=start,eol,indent
 
 
-
-set cursorline
-
 if has('mouse')
     set mouse=a
 endif
@@ -194,7 +191,8 @@ autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
   " Define mappings
   nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('open')
+  \ defx#is_directory() ? defx#do_action('open_or_close_tree') :
+  \ defx#do_action('multi', [['drop'], 'quit'])
   nnoremap <silent><buffer><expr> c
   \ defx#do_action('copy')
   nnoremap <silent><buffer><expr> m
@@ -281,6 +279,14 @@ call defx#custom#column('git', 'indicators', {
 call defx#custom#option('_', {
 	      \ 'columns': 'mark:indent:icon:space:indent:icons:space:filename:type:git:size:time',
 	      \ })
+
+call defx#custom#option('_', {
+      \ 'winwidth': 40,
+      \ 'split': 'vertical',
+      \ 'direction': 'topleft',
+      \ 'show_ignored_files': 1,
+      \ 'root_marker': '@'
+      \ })
 
 
 " Enable rufo (RUby FOrmat)
@@ -475,5 +481,7 @@ syntax enable
 nmap \z :w !python3 <CR>
 
 
+
 " lua << EOF require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
+
 
