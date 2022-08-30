@@ -19,6 +19,15 @@ lctrl + alt + cmd - a : yabai -m window --warp west
 lctrl + alt + cmd - s : yabai -m window --warp south
 lctrl + alt + cmd - d : yabai -m window --warp east
 
+# make floating window fill screen
+lctrl + alt + cmd - up     : yabai -m window --grid 1:1:0:0:1:1
+
+# make floating window fill left-half of screen
+lctrl + alt + cmd - left  : yabai -m window --grid 1:2:0:0:1:1
+ 
+# make floating window fill right-half of screen
+lctrl + alt + cmd - right  : yabai -m window --grid 1:2:1:0:1:1
+
 # balance size of windows
 lctrl + alt + cmd - b : yabai -m space --balance
 
