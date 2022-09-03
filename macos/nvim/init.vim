@@ -1,6 +1,6 @@
 syntax on
 set lazyredraw
-set number
+set number relativenumber
 set updatetime=100
 set nowrap
 set tabstop=2
@@ -50,6 +50,7 @@ augroup END
 call plug#begin('~/.config/nvim/')
 
 Plug 'lervag/vimtex'
+Plug 'wellle/context.vim'
 
 Plug 'ruby-formatter/rufo-vim'
 Plug 'tpope/vim-fugitive'
@@ -177,11 +178,6 @@ lua <<EOF
   })
   vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
 EOF
-
-
-
-
-
 
 
 
