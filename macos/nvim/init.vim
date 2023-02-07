@@ -67,6 +67,9 @@ Plug 'pangloss/vim-javascript'
 Plug 'elzr/vim-json'
 Plug 'MaxMEllon/vim-jsx-pretty'
 
+" Django snippets
+Plug 'ycm-core/YouCompleteMe'
+
 " React snippets
 Plug 'SirVer/ultisnips'
 Plug 'mlaursen/vim-react-snippets'
@@ -136,48 +139,51 @@ Plug 'honza/vim-snippets'
 
 call plug#end()
 
+" Use homebrew's clangd
+let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
+
 autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 
 let g:python3_host_prog = '/opt/homebrew/bin/python3'
 
 " cmp
-set completeopt=menuone,noinsert,noselect
-lua <<EOF
-   require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
-  local cmp = require'cmp'
-  local lspkind = require'lspkind'
-  cmp.setup({
-    snippet = {
-      expand = function(args)
-        require('luasnip').lsp_expand(args.body)
-        -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-        vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-      end,
-    },
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-    }),
-    sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      -- { name = 'luasnip' }, -- For luasnip users.
-      -- { name = 'vsnip' }, -- For vsnip users.
-      { name = 'ultisnips' }, -- For ultisnips users.
-      -- { name = 'snippy' }, -- For snippy users.
-    }, {
-      { name = 'buffer' },
-    }),
-      formatting = {
-        format = lspkind.cmp_format({maxwidth = 100})
-    }
-  })
-  vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
-EOF
+" set completeopt=menuone,noinsert,noselect
+" lua <<EOF
+"    require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
+"   local cmp = require'cmp'
+"   local lspkind = require'lspkind'
+"   cmp.setup({
+"     snippet = {
+"       expand = function(args)
+"         require('luasnip').lsp_expand(args.body)
+"         -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+"         -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
+"         vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
+"       end,
+"     },
+"     mapping = cmp.mapping.preset.insert({
+"       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+"       ['<C-f>'] = cmp.mapping.scroll_docs(4),
+"       ['<C-Space>'] = cmp.mapping.complete(),
+"       ['<C-e>'] = cmp.mapping.abort(),
+"       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+"     }),
+"     sources = cmp.config.sources({
+"       { name = 'nvim_lsp' },
+"       -- { name = 'luasnip' }, -- For luasnip users.
+"       -- { name = 'vsnip' }, -- For vsnip users.
+"       { name = 'ultisnips' }, -- For ultisnips users.
+"       -- { name = 'snippy' }, -- For snippy users.
+"     }, {
+"       { name = 'buffer' },
+"     }),
+"       formatting = {
+"         format = lspkind.cmp_format({maxwidth = 100})
+"     }
+"   })
+"   vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
+" EOF
 
 
 
@@ -476,8 +482,25 @@ syntax enable
 
 nmap \z :w !python3 <CR>
 
+" mypy
+let g:syntastic_python_checkers=['mypy']
 
+" Django snippets 
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
+
+let g:UltiSnipsExpandTrigger       = "<c-j>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+
+nnoremap <silent> <localleader>h <Plug>(YCMToggleInlayHints)
 
 " lua << EOF require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
+
+
 
 
