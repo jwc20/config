@@ -49,6 +49,8 @@ augroup END
 
 call plug#begin('~/.config/nvim/')
 
+Plug 'tpope/vim-commentary'
+
 Plug 'lervag/vimtex'
 Plug 'wellle/context.vim'
 
@@ -475,6 +477,8 @@ endfunction
 vnoremap ,m :<c-w><c-w><c-w><c-w><c-w>call Comment()<CR>
 vnoremap m, :<c-w><c-w><c-w><c-w><c-w>call UnComment()<CR>
 
+
+
 " vimtex
 filetype plugin indent on
 syntax enable
@@ -499,8 +503,9 @@ let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on cu
 
 nnoremap <silent> <localleader>h <Plug>(YCMToggleInlayHints)
 
+" vim-commentary
+noremap <leader>/ :Commentary<cr>
+
 " lua << EOF require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
-
-
 
 
