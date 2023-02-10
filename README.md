@@ -5,7 +5,7 @@
 - nvim 
 
 
-### MacOS
+### Mac
 - iterm2
 - fish 
 - starship 
