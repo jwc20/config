@@ -81,6 +81,7 @@ Plug 'mlaursen/vim-react-snippets'
 Plug 'honza/vim-snippets'
 
   if has("nvim")
+    Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
     Plug 'hoob3rt/lualine.nvim'
@@ -141,6 +142,9 @@ Plug 'honza/vim-snippets'
   Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
 
 call plug#end()
+
+
+
 
 " Use homebrew's clangd
 let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
@@ -464,6 +468,8 @@ let b:surround_{char2nr("%")} = "{% \r %}"
 
 " lua << EOF require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
 
+
+
 " cmp
 set completeopt=menuone,noinsert,noselect
 lua << EOF
@@ -501,5 +507,9 @@ lua << EOF
     }
   })
   vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
+
+  require('mini.starter').setup()
+  require('mini.indentscope').setup()
+
 EOF
 
