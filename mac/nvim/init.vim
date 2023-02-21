@@ -2,9 +2,6 @@ syntax on
 set lazyredraw
 set number relativenumber
 set updatetime=100
-set nowrap
-set tabstop=2
-set shiftwidth=2
 set expandtab
 set hlsearch
 set ruler
@@ -28,6 +25,7 @@ hi CursorLine cterm=NONE ctermbg=8 ctermfg=NONE
 
 " indents
 filetype plugin indent on
+filetype indent off
 set shiftwidth=2
 set tabstop=2
 set ai "Auto indent
@@ -48,12 +46,10 @@ augroup HiglightTODO
 augroup END
 
 call plug#begin('~/.config/nvim/')
-
+Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'tpope/vim-commentary'
-
 Plug 'lervag/vimtex'
 Plug 'wellle/context.vim'
-
 Plug 'ruby-formatter/rufo-vim'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-rhubarb'
@@ -147,6 +143,7 @@ Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 call plug#end()
 
 
+let g:python_pep8_indent_hang_closing = 0
 
 
 " Use homebrew's clangd
@@ -667,4 +664,3 @@ lua << EOF
   require('mini.indentscope').setup()
 
 EOF
-
