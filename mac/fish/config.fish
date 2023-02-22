@@ -26,3 +26,7 @@ end
 
 
 starship init fish | source
+
+# fzf.fish
+fzf_configure_bindings --directory=\cf --variables=\cv --git_log=\cl --git_status=\cs --history=\ch --processes=\cp
+

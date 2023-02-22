@@ -519,6 +519,20 @@ let b:surround_{char2nr("%")} = "{% \r %}"
 " EOF
 "
 
+" https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27#configuration
+command! -bang -nargs=*  All
+  \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*}"', 'down': '40%', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse' }))
+
+nnoremap <silent> <leader>o :All<cr>
+
+
+
+
+
+
+
+
+
 
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
 lua << EOF
@@ -664,3 +678,4 @@ lua << EOF
   require('mini.indentscope').setup()
 
 EOF
+
