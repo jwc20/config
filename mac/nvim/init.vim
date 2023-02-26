@@ -15,6 +15,7 @@ set complete+=kspell
 set completeopt=menuone,longest
 set cursorline
 set shortmess+=c
+set shortmess=I
 set t_Co=256
 set smarttab
 set cursorcolumn
@@ -80,6 +81,7 @@ Plug 'hrsh7th/vim-vsnip-integ'
 Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
   if has("nvim")
+    Plug 'nvim-telescope/telescope-file-browser.nvim'
     Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
     Plug 'vim-airline/vim-airline'
     Plug 'vim-airline/vim-airline-themes'
@@ -408,11 +410,7 @@ let g:mkdp_page_title = '「${name}」'
 let g:mkdp_filetypes = ['markdown']
 
 
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
 
 
 function! Comment()
@@ -466,77 +464,35 @@ let b:surround_{char2nr("%")} = "{% \r %}"
 
 
 
-" lua << EOF require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules"} } } 
-
-
-
-" cmp
-"
-" set completeopt=menuone,noinsert,noselect
-" lua << EOF
-"   require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", "venv"} } } 
-" 
-"   local cmp = require'cmp'
-"   local lspkind = require'lspkind'
-"   if not luasnip then
-"     return
-"   end
-" 
-"   cmp.setup({
-"     snippet = {
-"       expand = function(args)
-"         require('luasnip').lsp_expand(args.body)
-"         -- vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-"         -- require('snippy').expand_snippet(args.body) -- For `snippy` users.
-"         vim.fn["UltiSnips#Anon"](args.body) -- For `ultisnips` users.
-"       end,
-"     },
-"     mapping = cmp.mapping.preset.insert({
-"       ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-"       ['<C-f>'] = cmp.mapping.scroll_docs(4),
-"       ['<C-Space>'] = cmp.mapping.complete(),
-"       ['<C-e>'] = cmp.mapping.abort(),
-"       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-"     }),
-"     sources = cmp.config.sources({
-"       { name = 'nvim_lsp' },
-"       -- { name = 'luasnip' }, -- For luasnip users.
-"       -- { name = 'vsnip' }, -- For vsnip users.
-"       { name = 'ultisnips' }, -- For ultisnips users.
-"       -- { name = 'snippy' }, -- For snippy users.
-"     }, {
-"       { name = 'buffer' },
-"     }),
-"       formatting = {
-"         format = lspkind.cmp_format({maxwidth = 100})
-"     }
-"   })
-"   vim.cmd [[highlight! default link CmpItemKind CmpItemMenuDefault]]
-" 
-"   require('mini.starter').setup()
-"   require('mini.indentscope').setup()
-" 
-" EOF
-"
 
 " https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27#configuration
 command! -bang -nargs=*  All
-  \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*}"', 'down': '40%', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse' }))
+  \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,venv/*}"', 'down': '40%', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse' }))
 
 nnoremap <silent> <leader>o :All<cr>
 
 
 
-
-
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <silent> <leader>fb <cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>
 
 
 
 
 
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
+
 lua << EOF
   require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", "venv"} } } 
+  require("telescope").load_extension "file_browser"
+
+  require('mini.indentscope').setup()
+
+  local tabnine = require("cmp_tabnine.config")
   local cmp = require("cmp")
   vim.opt.completeopt = "menu,menuone,noselect"
 
@@ -665,7 +621,7 @@ lua << EOF
   ]]
   )
   
-  local tabnine = require("cmp_tabnine.config")
+
   tabnine:setup(
     {
       max_lines = 1000,
@@ -674,8 +630,6 @@ lua << EOF
       run_on_every_keystroke = true
     }
   )
-  require('mini.starter').setup()
-  require('mini.indentscope').setup()
 
 EOF
 
