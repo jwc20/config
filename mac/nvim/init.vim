@@ -20,7 +20,6 @@ set t_Co=256
 set smarttab
 set cursorcolumn
 
-
 hi CursorColumn cterm=NONE ctermbg=8 ctermfg=NONE
 hi CursorLine cterm=NONE ctermbg=8 ctermfg=NONE
 
@@ -34,6 +33,9 @@ set si "Smart indent
 set nowrap "No Wrap lines
 set backspace=start,eol,indent
 
+" vimtex
+filetype plugin indent on
+syntax enable
 
 if has('mouse')
     set mouse=a
@@ -46,189 +48,208 @@ augroup HiglightTODO
     autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO\|FIXME', -1)
 augroup END
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugs
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/')
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'tpope/vim-commentary'
-Plug 'lervag/vimtex'
-Plug 'wellle/context.vim'
-Plug 'ruby-formatter/rufo-vim'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-surround'
-Plug 'cohama/lexima.vim'
-Plug 'junegunn/goyo.vim'
-" Plug 'vim-scripts/AutoComplPop'
-Plug 'alvan/vim-closetag'
 
-" javascript syntax
-Plug 'mattn/emmet-vim'
-Plug 'pangloss/vim-javascript'
-Plug 'elzr/vim-json'
-Plug 'MaxMEllon/vim-jsx-pretty'
+    Plug 'Vimjas/vim-python-pep8-indent'
+    Plug 'tpope/vim-commentary'
+    Plug 'lervag/vimtex'
+    Plug 'wellle/context.vim'
+    Plug 'ruby-formatter/rufo-vim'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-rhubarb'
+    Plug 'tpope/vim-surround'
+    Plug 'cohama/lexima.vim'
+    Plug 'junegunn/goyo.vim'
+    " Plug 'vim-scripts/AutoComplPop'
+    Plug 'alvan/vim-closetag'
 
-" Django snippets
-" Plug 'ycm-core/YouCompleteMe'
-Plug 'tweekmonster/django-plus.vim'
+    " javascript syntax
+    Plug 'mattn/emmet-vim'
+    Plug 'pangloss/vim-javascript'
+    Plug 'elzr/vim-json'
+    Plug 'MaxMEllon/vim-jsx-pretty'
 
-" React snippets
-Plug 'SirVer/ultisnips'
-Plug 'mlaursen/vim-react-snippets'
+    " Django snippets
+    " Plug 'ycm-core/YouCompleteMe'
+    Plug 'tweekmonster/django-plus.vim'
 
-" Snippets of various languages
-Plug 'honza/vim-snippets'
-Plug 'hrsh7th/vim-vsnip'
-Plug 'hrsh7th/vim-vsnip-integ'
-Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-
-  if has("nvim")
-    Plug 'nvim-telescope/telescope-file-browser.nvim'
-    Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
-    Plug 'vim-airline/vim-airline'
-    Plug 'vim-airline/vim-airline-themes'
-    Plug 'hoob3rt/lualine.nvim'
-    Plug 'kristijanhusak/defx-git'
-    Plug 'kristijanhusak/defx-icons'
-    Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'tami5/lspsaga.nvim', { 'branch': 'nvim51' }
-    Plug 'folke/lsp-colors.nvim'
-  
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-    Plug 'kyazdani42/nvim-web-devicons'
-  
-    "telescoping / fuzzyfinder
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'nvim-telescope/telescope-fzy-native.nvim'
-    Plug 'kyazdani42/nvim-web-devicons'
-    Plug 'windwp/nvim-autopairs'
-    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-    Plug 'junegunn/fzf.vim'
-  
-    Plug 'sbdchd/neoformat'
-    Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-  
-    " nvim-cmp
-    Plug 'neovim/nvim-lspconfig'
-    Plug 'hrsh7th/cmp-nvim-lsp'
-    Plug 'hrsh7th/cmp-buffer'
-    Plug 'hrsh7th/cmp-path'
-    Plug 'hrsh7th/cmp-cmdline'
-    Plug 'hrsh7th/nvim-cmp'
-    Plug 'onsails/lspkind-nvim'
-  
-    " For vsnip users.
-    " Plug 'hrsh7th/cmp-vsnip'
-    " Plug 'hrsh7th/vim-vsnip'
-    
-    " For luasnip users.
-    Plug 'L3MON4D3/LuaSnip'
-    Plug 'saadparwaiz1/cmp_luasnip'
-    
-    " For ultisnips users.
+    " React snippets
     Plug 'SirVer/ultisnips'
-    Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-    
-    " For snippy users.
-    " Plug 'dcampos/nvim-snippy'
-    " Plug 'dcampos/cmp-snippy'
-  
-  endif
-  
-  Plug 'groenewege/vim-less', { 'for': 'less' }
-  Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+    Plug 'mlaursen/vim-react-snippets'
 
+    " Snippets of various languages
+    Plug 'honza/vim-snippets'
+    Plug 'hrsh7th/vim-vsnip'
+    Plug 'hrsh7th/vim-vsnip-integ'
+    Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
+
+    Plug 'groenewege/vim-less', { 'for': 'less' }
+    Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
+
+    if has("nvim")
+        Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        Plug 'neoclide/coc-html'
+        Plug 'yaegassy/coc-htmldjango', {'do': 'yarn install --frozen-lockfile'}
+
+        Plug 'nvim-telescope/telescope-file-browser.nvim'
+        Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
+        Plug 'vim-airline/vim-airline'
+        Plug 'vim-airline/vim-airline-themes'
+        Plug 'hoob3rt/lualine.nvim'
+        Plug 'kristijanhusak/defx-git'
+        Plug 'kristijanhusak/defx-icons'
+        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+        Plug 'neovim/nvim-lspconfig'
+        Plug 'tami5/lspsaga.nvim', { 'branch': 'nvim51' }
+        Plug 'folke/lsp-colors.nvim'
+    
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        Plug 'hrsh7th/cmp-buffer'
+        Plug 'hrsh7th/nvim-cmp'
+        Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
+        Plug 'kyazdani42/nvim-web-devicons'
+    
+        "telescoping / fuzzyfinder
+        Plug 'nvim-lua/popup.nvim'
+        Plug 'nvim-lua/plenary.nvim'
+        Plug 'nvim-telescope/telescope.nvim'
+        Plug 'nvim-telescope/telescope-fzy-native.nvim'
+        Plug 'kyazdani42/nvim-web-devicons'
+        Plug 'windwp/nvim-autopairs'
+        Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+        Plug 'junegunn/fzf.vim'
+    
+        Plug 'sbdchd/neoformat'
+        Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+    
+        " nvim-cmp
+        Plug 'neovim/nvim-lspconfig'
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        Plug 'hrsh7th/cmp-buffer'
+        Plug 'hrsh7th/cmp-path'
+        Plug 'hrsh7th/cmp-cmdline'
+        Plug 'hrsh7th/nvim-cmp'
+        Plug 'onsails/lspkind-nvim'
+    
+        " For vsnip users.
+        " Plug 'hrsh7th/cmp-vsnip'
+        " Plug 'hrsh7th/vim-vsnip'
+        
+        " For luasnip users.
+        Plug 'L3MON4D3/LuaSnip'
+        Plug 'saadparwaiz1/cmp_luasnip'
+        
+        " For ultisnips users.
+        Plug 'SirVer/ultisnips'
+        Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+        
+        " For snippy users.
+        " Plug 'dcampos/nvim-snippy'
+        " Plug 'dcampos/cmp-snippy'
+    endif
 call plug#end()
 
 
-let g:python_pep8_indent_hang_closing = 0
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Mappings
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <silent> <leader>fb <cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>
 
-" Use homebrew's clangd
-let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
+" fzf
+nnoremap <silent> <leader>o :All<cr>
 
-autocmd FileType python map <buffer> <F9> :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+" vim-commentary
+noremap <leader>/ :Commentary<cr>
 
-let g:python3_host_prog = '/opt/homebrew/bin/python3'
+" Python run
+nmap \z :w !python3 <CR>
 
+" coc djlint format
+nnoremap <silent> <LocalLeader>djf :CocCommand htmldjango.djlint.format<CR>
 
+" Telescope
+nnoremap <silent> <LocalLeader>[ :bp<CR>
+nnoremap <silent> <LocalLeader>] :bn<CR>
 
-
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Defx
 nnoremap <C-n> :Defx<cr>
 autocmd FileType defx call s:defx_my_settings()
 function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#is_directory() ? defx#do_action('open_or_close_tree') :
-  \ defx#do_action('multi', [['drop'], 'quit'])
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open')
-  nnoremap <silent><buffer><expr> E
-  \ defx#do_action('open', 'vsplit')
-  nnoremap <silent><buffer><expr> P
-  \ defx#do_action('preview')
-  nnoremap <silent><buffer><expr> o
-  \ defx#do_action('open_tree', 'toggle')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file')
-  nnoremap <silent><buffer><expr> M
-  \ defx#do_action('new_multiple_files')
-  nnoremap <silent><buffer><expr> C
-  \ defx#do_action('toggle_columns',
-  \                'mark:indent:icon:filename:type:size:time')
-  nnoremap <silent><buffer><expr> S
-  \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-  \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
-  \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-  \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-  \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-  \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-  \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-  \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-  \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-  \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-  \ defx#do_action('change_vim_cwd')
+    " Define mappings
+    nnoremap <silent><buffer><expr> <CR>
+    \ defx#is_directory() ? defx#do_action('open_or_close_tree') :
+    \ defx#do_action('multi', [['drop'], 'quit'])
+    nnoremap <silent><buffer><expr> c
+    \ defx#do_action('copy')
+    nnoremap <silent><buffer><expr> m
+    \ defx#do_action('move')
+    nnoremap <silent><buffer><expr> p
+    \ defx#do_action('paste')
+    nnoremap <silent><buffer><expr> l
+    \ defx#do_action('open')
+    nnoremap <silent><buffer><expr> E
+    \ defx#do_action('open', 'vsplit')
+    nnoremap <silent><buffer><expr> P
+    \ defx#do_action('preview')
+    nnoremap <silent><buffer><expr> o
+    \ defx#do_action('open_tree', 'toggle')
+    nnoremap <silent><buffer><expr> K
+    \ defx#do_action('new_directory')
+    nnoremap <silent><buffer><expr> N
+    \ defx#do_action('new_file')
+    nnoremap <silent><buffer><expr> M
+    \ defx#do_action('new_multiple_files')
+    nnoremap <silent><buffer><expr> C
+    \ defx#do_action('toggle_columns',
+    \                'mark:indent:icon:filename:type:size:time')
+    nnoremap <silent><buffer><expr> S
+    \ defx#do_action('toggle_sort', 'time')
+    nnoremap <silent><buffer><expr> d
+    \ defx#do_action('remove')
+    nnoremap <silent><buffer><expr> r
+    \ defx#do_action('rename')
+    nnoremap <silent><buffer><expr> !
+    \ defx#do_action('execute_command')
+    nnoremap <silent><buffer><expr> x
+    \ defx#do_action('execute_system')
+    nnoremap <silent><buffer><expr> yy
+    \ defx#do_action('yank_path')
+    nnoremap <silent><buffer><expr> .
+    \ defx#do_action('toggle_ignored_files')
+    nnoremap <silent><buffer><expr> ;
+    \ defx#do_action('repeat')
+    nnoremap <silent><buffer><expr> h
+    \ defx#do_action('cd', ['..'])
+    nnoremap <silent><buffer><expr> ~
+    \ defx#do_action('cd')
+    nnoremap <silent><buffer><expr> q
+    \ defx#do_action('quit')
+    nnoremap <silent><buffer><expr> <Space>
+    \ defx#do_action('toggle_select') . 'j'
+    nnoremap <silent><buffer><expr> *
+    \ defx#do_action('toggle_select_all')
+    nnoremap <silent><buffer><expr> j
+    \ line('.') == line('$') ? 'gg' : 'j'
+    nnoremap <silent><buffer><expr> k
+    \ line('.') == 1 ? 'G' : 'k'
+    nnoremap <silent><buffer><expr> <C-l>
+    \ defx#do_action('redraw')
+    nnoremap <silent><buffer><expr> <C-g>
+    \ defx#do_action('print')
+    nnoremap <silent><buffer><expr> cd
+    \ defx#do_action('change_vim_cwd')
 endfunction
-
 
 call defx#custom#column('filename', {
       \ 'min_width': 10,
@@ -264,13 +285,36 @@ call defx#custom#option('_', {
       \ })
 
 
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Config
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27#configuration
+command! -bang -nargs=*  All
+  \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,venv/*}"', 'down': '40%', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse' }))
+
+let g:python_pep8_indent_hang_closing = 0
+
+" Use homebrew's clangd
+let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
+
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
+
 " Enable rufo (RUby FOrmat)
 let g:rufo_auto_formatting = 1
 
 " Neoformat
 let g:neoformat_try_node_exe = 1
 
+" mypy
+let g:syntastic_python_checkers=['mypy']
 
+let b:surround_{char2nr("%")} = "{% \r %}"
+
+" vim-jsx
+let g:jsx_ext_required = 1
+let g:jsx_pragma_required = 1
 
 " vim-closetag
 let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
@@ -286,7 +330,6 @@ let g:closetag_regions = {
     \ }
 let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
-
 
 "vim-javascript
 let g:javascript_plugin_jsdoc = 1
@@ -305,18 +348,9 @@ let g:javascript_conceal_arrow_function       = "⇒"
 let g:javascript_conceal_noarg_arrow_function = "🞅"
 let g:javascript_conceal_underscore_arrow_function = "🞅"
 
-" vim-jsx
-let g:jsx_ext_required = 1
-let g:jsx_pragma_required = 1
 
-
-
-nnoremap <silent> <LocalLeader>[ :bp<CR>
-nnoremap <silent> <LocalLeader>] :bn<CR>
-
-
-
-"Airline Config"
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Airline Config
 let g:airline_powerline_fonts = 1
 
 if !exists('g:airline_symbols')
@@ -356,12 +390,13 @@ let g:airline_symbols.readonly = ''
 let g:airline_symbols.linenr = ' :'
 let g:airline_symbols.maxlinenr = '☰ '
 let g:airline_symbols.dirty='⚡'
-
 let g:airline_theme='cool'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
 let g:airline#extensions#tabline#formatter = 'default'
+let g:airline#extensions#neomake#enabled = 0
+let g:airline_skip_empty_sections = 1
 
 let g:airline_filetype_overrides = {
       \ 'coc-explorer':  [ 'CoC Explorer', '' ],
@@ -379,6 +414,7 @@ let g:airline_filetype_overrides = {
       \ 'vaffle' : [ 'Vaffle', '%{b:vaffle.dir}' ],
       \ }
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Markdown-Preview
 let g:mkdp_auto_start = 0
@@ -411,81 +447,10 @@ let g:mkdp_filetypes = ['markdown']
 
 
 
-
-
-function! Comment()
-    let ext = tolower(expand('%:e'))
-    if ext == 'py' 
-        let cmt1 = "'''"
-        let cmt2 = "'''"   
-    elseif ext == 'cpp' || ext =='java' || ext == 'css' || ext == 'js' || ext == 'c' || ext =='cs' || ext == 'rs' || ext == 'go'
-        let cmt1 = '/*'
-        let cmt2 = '*/'
-    elseif ext == 'sh'
-        let cmt1 = ":'"
-        let cmt2 = "'"
-    elseif ext == 'html'
-        let cmt1 = "<!--"
-        let cmt2 = "-->"
-    elseif ext == 'hs'
-        let cmt1 = "{-"
-        let cmt2 = "-}"
-    elseif ext == "rb"
-        let cmt1 = "=begin"
-        let cmt2 = "=end"
-    endif
-    exe line("'<")."normal O". cmt1 | exe line("'>")."normal o". cmt2 
-endfunction
-
-function! UnComment()
-    exe line("'<")."normal dd" | exe line("'>")."normal dd"   
-endfunction
-
-vnoremap ,m :<c-w><c-w><c-w><c-w><c-w>call Comment()<CR>
-vnoremap m, :<c-w><c-w><c-w><c-w><c-w>call UnComment()<CR>
-
-
-
-" vimtex
-filetype plugin indent on
-syntax enable
-
-
-nmap \z :w !python3 <CR>
-
-" mypy
-let g:syntastic_python_checkers=['mypy']
-
-
-" vim-commentary
-noremap <leader>/ :Commentary<cr>
-
-let b:surround_{char2nr("%")} = "{% \r %}"
-
-
-
-
-" https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27#configuration
-command! -bang -nargs=*  All
-  \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,venv/*}"', 'down': '40%', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse' }))
-
-nnoremap <silent> <leader>o :All<cr>
-
-
-
-" Find files using Telescope command-line sugar.
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <silent> <leader>fb <cmd>Telescope file_browser path=%:p:h select_buffer=true<cr>
-
-
-
-
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Lua
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
-
 lua << EOF
   require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", "venv"} } } 
   require("telescope").load_extension "file_browser"
@@ -612,14 +577,12 @@ lua << EOF
     }
   )
   
-  vim.cmd(
-    [[
-  augroup NvimCmp
-  au!
-  au FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
-  augroup END
-  ]]
-  )
+    vim.cmd([[
+        augroup NvimCmp
+        au!
+        au FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
+        augroup END
+    ]])
   
 
   tabnine:setup(
@@ -632,4 +595,3 @@ lua << EOF
   )
 
 EOF
-
