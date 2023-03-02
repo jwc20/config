@@ -78,8 +78,8 @@ call plug#begin('~/.config/nvim/')
     Plug 'tweekmonster/django-plus.vim'
 
     " React snippets
-    Plug 'SirVer/ultisnips'
-    Plug 'mlaursen/vim-react-snippets'
+    " Plug 'SirVer/ultisnips'
+    " Plug 'mlaursen/vim-react-snippets'
 
     " Snippets of various languages
     Plug 'honza/vim-snippets'
@@ -119,7 +119,7 @@ call plug#begin('~/.config/nvim/')
         Plug 'nvim-telescope/telescope.nvim'
         Plug 'nvim-telescope/telescope-fzy-native.nvim'
         Plug 'kyazdani42/nvim-web-devicons'
-        Plug 'windwp/nvim-autopairs'
+        " Plug 'windwp/nvim-autopairs'
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
     
@@ -136,16 +136,16 @@ call plug#begin('~/.config/nvim/')
         Plug 'onsails/lspkind-nvim'
     
         " For vsnip users.
-        " Plug 'hrsh7th/cmp-vsnip'
-        " Plug 'hrsh7th/vim-vsnip'
+        Plug 'hrsh7th/cmp-vsnip'
+        Plug 'hrsh7th/vim-vsnip'
         
         " For luasnip users.
         Plug 'L3MON4D3/LuaSnip'
         Plug 'saadparwaiz1/cmp_luasnip'
         
         " For ultisnips users.
-        Plug 'SirVer/ultisnips'
-        Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+        " Plug 'SirVer/ultisnips'
+        " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
         
         " For snippy users.
         " Plug 'dcampos/nvim-snippy'
@@ -290,6 +290,7 @@ call defx#custom#option('_', {
 " Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
 " https://dev.to/matrixersp/how-to-use-fzf-with-ripgrep-to-selectively-ignore-vcs-files-4e27#configuration
 command! -bang -nargs=*  All
   \ call fzf#run(fzf#wrap({'source': 'rg --files --hidden --no-ignore-vcs --glob "!{node_modules/*,.git/*,venv/*}"', 'down': '40%', 'options': '--expect=ctrl-t,ctrl-x,ctrl-v --multi --reverse' }))
@@ -317,9 +318,9 @@ let g:jsx_ext_required = 1
 let g:jsx_pragma_required = 1
 
 " vim-closetag
-let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml, *.js'
 let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
-let g:closetag_filetypes = 'html,xhtml,phtml'
+let g:closetag_filetypes = 'html,xhtml,phtml,js'
 let g:closetag_xhtml_filetypes = 'xhtml,jsx'
 let g:closetag_emptyTags_caseSensitive = 1
 let g:closetag_regions = {
@@ -447,9 +448,33 @@ let g:mkdp_filetypes = ['markdown']
 
 
 
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Lua
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Sources for cmp autocomplete suggestions
+"      sources = {
+"        {name = "nvim_lsp"},
+"        {name = "vsnip"},
+"        {name = "path"},
+"        {name = "luasnip"},
+"        {name = "ultisnips"},
+"        {name = "buffer"},
+"        {name = "nvim_lua"},
+"        {name = "treesitter"},
+"        {name = "spell"},
+"        {name = "calc"},
+"        {name = "emoji"},
+"        {name = "look"},
+"        {name = "latex_symbols"},
+"        {name = "cmp_tabnine"},
+"        {name = "neorg"},
+"        {name = "cmp_luasnip"}
+"      }
+
+      
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
 lua << EOF
   require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", "venv"} } } 
@@ -557,22 +582,8 @@ lua << EOF
         end
       },
       sources = {
-        {name = "nvim_lsp"},
-        {name = "vsnip"},
-        {name = "path"},
-        {name = "luasnip"},
-        {name = "ultisnips"},
         {name = "buffer"},
-        {name = "nvim_lua"},
-        {name = "treesitter"},
-        {name = "spell"},
-        {name = "calc"},
-        {name = "emoji"},
-        {name = "look"},
-        {name = "latex_symbols"},
         {name = "cmp_tabnine"},
-        {name = "neorg"},
-        {name = "cmp_luasnip"}
       }
     }
   )
@@ -595,3 +606,5 @@ lua << EOF
   )
 
 EOF
+
+
