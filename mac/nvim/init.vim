@@ -1,4 +1,5 @@
 syntax on
+set encoding=UTF-8
 set lazyredraw
 set number relativenumber
 set updatetime=100
@@ -82,9 +83,10 @@ call plug#begin('~/.config/nvim/')
     " Plug 'mlaursen/vim-react-snippets'
 
     " Snippets of various languages
-    Plug 'honza/vim-snippets'
-    Plug 'hrsh7th/vim-vsnip'
-    Plug 'hrsh7th/vim-vsnip-integ'
+    " Plug 'honza/vim-snippets'
+    " Plug 'hrsh7th/vim-vsnip'
+    " Plug 'hrsh7th/vim-vsnip-integ'
+
     Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
 
     Plug 'groenewege/vim-less', { 'for': 'less' }
@@ -111,14 +113,13 @@ call plug#begin('~/.config/nvim/')
         Plug 'hrsh7th/cmp-buffer'
         Plug 'hrsh7th/nvim-cmp'
         Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
-        Plug 'kyazdani42/nvim-web-devicons'
     
         "telescoping / fuzzyfinder
         Plug 'nvim-lua/popup.nvim'
         Plug 'nvim-lua/plenary.nvim'
         Plug 'nvim-telescope/telescope.nvim'
         Plug 'nvim-telescope/telescope-fzy-native.nvim'
-        Plug 'kyazdani42/nvim-web-devicons'
+        Plug 'nvim-tree/nvim-web-devicons'
         " Plug 'windwp/nvim-autopairs'
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
@@ -144,8 +145,9 @@ call plug#begin('~/.config/nvim/')
         Plug 'saadparwaiz1/cmp_luasnip'
         
         " For ultisnips users.
-        " Plug 'SirVer/ultisnips'
-        " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+        Plug 'SirVer/ultisnips'
+        Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+        Plug 'honza/vim-snippets'
         
         " For snippy users.
         " Plug 'dcampos/nvim-snippy'
@@ -487,12 +489,12 @@ lua << EOF
   vim.opt.completeopt = "menu,menuone,noselect"
 
   local lspkind = require'lspkind'
-  local luasnip = require("luasnip")
+  -- local luasnip = require("luasnip")
 
-  if not luasnip then
-    return
-  end
-  
+  -- if not luasnip then
+  --   return
+  -- end
+
   local lsp_symbols = {
     Text = "   (Text) ",
     Method = "   (Method)",
@@ -525,7 +527,10 @@ lua << EOF
     {
       snippet = {
         expand = function(args)
-          vim.fn["vsnip#anonymous"](args.body)
+          require("luasnip").lsp_expand(args.body)
+          -- vim.fn["vsnip#anonymous"](args.body)
+          -- vim.fn["UltiSnips#Anon"](args.body)
+
         end
       },
       mapping = {
@@ -582,8 +587,22 @@ lua << EOF
         end
       },
       sources = {
+        {name = "nvim_lsp"},
+        {name = "vsnip"},
+        {name = "path"},
+        {name = "luasnip"},
+        {name = "ultisnips"},
         {name = "buffer"},
+        {name = "nvim_lua"},
+        {name = "treesitter"},
+        {name = "spell"},
+        {name = "calc"},
+        {name = "emoji"},
+        {name = "look"},
+        {name = "latex_symbols"},
         {name = "cmp_tabnine"},
+        {name = "neorg"},
+        {name = "cmp_luasnip"}
       }
     }
   )
@@ -606,5 +625,3 @@ lua << EOF
   )
 
 EOF
-
-
