@@ -15,6 +15,7 @@ alias lg='lazygit'
 alias lzd='lazydocker'
 alias ls='ls'
 alias cl='clear'
+alias mp='multipass'
 
 
 if status is-interactive
