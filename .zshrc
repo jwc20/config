@@ -7,4 +7,4 @@ export NVM_DIR="$HOME/.nvm"
 PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
 [ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
 
-
+alias lzd='lazydocker'
