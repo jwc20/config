@@ -7,9 +7,13 @@
 .config/xm1
 .config/xournalpp
 .config/buildx
-.config/nvim
 
-.config/fish
+.config/nvim/*
+!.config/nvim/init.vim
+
+.config/fish/*
+!.config/fish/config.fish
+
 .config/omf
 
 
