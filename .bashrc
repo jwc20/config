@@ -13,7 +13,5 @@ fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
 export "GEM_PATH=/Users/cjw/.rvm/gems/ruby-2.7.4:/Users/cjw/.rvm/gems/ruby-2.7.4@global"
 export "GEM_HOME=/Users/cjw/.rvm/gems/ruby-2.7.4"
-alias dipfs='docker exec ipfs ipfs'
