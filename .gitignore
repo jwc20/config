@@ -10,6 +10,10 @@
 .config/buildx
 
 .config/nvim/*
+.config/nvim/cmp-tabnine
+.config/nvim/defx-git
+.config/nvim/defx-icons
+.config/nvim/django.plus.vim
 !.config/nvim/init.vim
 
 .config/fish/*
