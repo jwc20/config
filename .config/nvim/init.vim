@@ -572,28 +572,28 @@ lua << EOF
         end,
         ["<cr>"] = cmp.mapping.confirm({select = true})
       },
-      formatting = {
-        format = function(entry, item)
-          item.kind = lsp_symbols[item.kind] .. " " .. item.kind
-          -- set a name for each source
-          item.menu =
-            ({
-            spell = "[Spell]",
-            buffer = "[Buffer]",
-            calc = "[Calc]",
-            emoji = "[Emoji]",
-            nvim_lsp = "[LSP]",
-            path = "[Path]",
-            look = "[Look]",
-            treesitter = "[treesitter]",
-            luasnip = "[LuaSnip]",
-            nvim_lua = "[Lua]",
-            latex_symbols = "[Latex]",
-            cmp_tabnine = "[Tab9]"
-          })[entry.source.name]
-          return item
-        end
-      },
+      -- formatting = {
+      --   format = function(entry, item)
+      --     item.kind = lsp_symbols[item.kind] .. " " .. item.kind
+      --     -- set a name for each source
+      --     item.menu =
+      --       ({
+      --       spell = "[Spell]",
+      --       buffer = "[Buffer]",
+      --       calc = "[Calc]",
+      --       emoji = "[Emoji]",
+      --       nvim_lsp = "[LSP]",
+      --       path = "[Path]",
+      --       look = "[Look]",
+      --       treesitter = "[treesitter]",
+      --       luasnip = "[LuaSnip]",
+      --       nvim_lua = "[Lua]",
+      --       latex_symbols = "[Latex]",
+      --       cmp_tabnine = "[Tab9]"
+      --     })[entry.source.name]
+      --     return item
+      --   end
+      -- },
       sources = {
         {name = "nvim_lsp"},
         {name = "vsnip"},
