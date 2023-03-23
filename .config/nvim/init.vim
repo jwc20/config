@@ -78,7 +78,7 @@ call plug#begin('~/.config/nvim/')
 
     " Django snippets
     " Plug 'ycm-core/YouCompleteMe'
-    Plug 'tweekmonster/django-plus.vim'
+    " Plug 'tweekmonster/django-plus.vim'
 
     " React snippets
     " Plug 'SirVer/ultisnips'
@@ -109,9 +109,9 @@ call plug#begin('~/.config/nvim/')
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'hoob3rt/lualine.nvim'
-        Plug 'kristijanhusak/defx-git'
-        Plug 'kristijanhusak/defx-icons'
-        Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
+        " Plug 'kristijanhusak/defx-git'
+        " Plug 'kristijanhusak/defx-icons'
+        " Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' }
         Plug 'neovim/nvim-lspconfig'
         Plug 'tami5/lspsaga.nvim', { 'branch': 'nvim51' }
         Plug 'folke/lsp-colors.nvim'
