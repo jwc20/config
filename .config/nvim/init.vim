@@ -167,8 +167,11 @@ call plug#end()
 " Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-nnoremap <leader>mm <cmd>MarkdownPreview<CR>
+" :W -> :w
+cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
 
+
+nnoremap <leader>mm <cmd>MarkdownPreview<CR>
 
 " Find files using Telescope command-line sugar.
 nnoremap <leader>ff <cmd>Telescope find_files<cr>
