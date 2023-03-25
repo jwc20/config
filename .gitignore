@@ -11,6 +11,7 @@
 .config/buildx
 
 .config/nvim/*
+.config/github-copilot
 .config/nvim/cmp-tabnine
 .config/nvim/defx-git
 .config/nvim/defx-icons
