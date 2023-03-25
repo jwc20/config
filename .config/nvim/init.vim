@@ -56,6 +56,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/')
 
+    Plug 'github/copilot.vim'
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'tpope/vim-commentary'
     Plug 'lervag/vimtex'
@@ -300,7 +301,9 @@ call defx#custom#option('_', {
       \ 'root_marker': '@'
       \ })
 
-
+" copilot
+imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+let g:copilot_no_tab_map = v:true
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config
