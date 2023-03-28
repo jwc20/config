@@ -302,6 +302,7 @@ call defx#custom#option('_', {
       \ })
 
 " copilot
+imap <silent><script><expr> <C-D> copilot#Accept("\<CR>")
 let g:copilot_no_tab_map = v:true
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
