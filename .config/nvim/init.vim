@@ -97,7 +97,7 @@ call plug#begin('~/.config/nvim/')
 
     Plug 'godlygeek/tabular'
     Plug 'elzr/vim-json'
-    Plug 'plasticboy/vim-markdown'
+    " Plug 'plasticboy/vim-markdown'
 
 
     if has("nvim")
