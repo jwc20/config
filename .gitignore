@@ -9,6 +9,7 @@
 .config/xm1
 .config/xournalpp
 .config/buildx
+.config/mpv
 
 .config/nvim/*
 .config/github-copilot
