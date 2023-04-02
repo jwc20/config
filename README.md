@@ -126,12 +126,7 @@ Install all the plugins inside neovim:
 
 ```
 :PlugInstall
+:UpdateRemotePlugin
 ```
 
-### Current issues in multipass Ubuntu VM:
-
-- Tabnine don't work.
-
-  - Need to configure $PATH for curl and unzip.
-
-- fuzzyfinder don't work.
+Note: Some tools don't work with Ubuntu for ARM like telescope.nvim and lazygit.
