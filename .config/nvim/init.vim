@@ -284,8 +284,8 @@ call defx#custom#option('_', {
       \ })
 
 " copilot
-imap <silent><script><expr> <C-D> copilot#Accept("\<CR>")
-let g:copilot_no_tab_map = v:true
+" imap <silent><script><expr> <C-D> copilot#Accept("\<CR>")
+" let g:copilot_no_tab_map = v:true
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config
@@ -488,12 +488,31 @@ lua << EOF
   	path = "[Path]",
   }
   
-  require'cmp'.setup {
-  	sources = {
-  		{ name = 'cmp_tabnine' },
+
+  local cmp = require'cmp'
+
+  cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      end,
+    },
+    mapping = cmp.mapping.preset.insert({
+      ["<C-p>"] = cmp.mapping.select_prev_item(),
+      ["<C-n>"] = cmp.mapping.select_next_item(),
+      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+      ['<C-f>'] = cmp.mapping.scroll_docs(4),
+      ['<C-Space>'] = cmp.mapping.complete(),
+      ['<C-e>'] = cmp.mapping.abort(),
+      ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    }),
+
+    sources = cmp.config.sources({
+      { name = 'cmp_tabnine' },
   		{ name = 'buffer' },
   		{ name = 'path' },
-  	},
+    }), 
+
   	formatting = {
   		format = function(entry, vim_item)
   			-- if you have lspkind installed, you can use it like
@@ -516,7 +535,9 @@ lua << EOF
   	 		return vim_item
   	  end,
   	},
-  }
+  })
+
+
 
 EOF
 
