@@ -55,7 +55,6 @@ augroup END
 " Plugs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/')
-
     Plug 'github/copilot.vim'
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'tpope/vim-commentary'
@@ -68,43 +67,21 @@ call plug#begin('~/.config/nvim/')
     Plug 'cohama/lexima.vim'
     Plug 'junegunn/goyo.vim'
     Plug 'junegunn/limelight.vim'
-    " Plug 'vim-scripts/AutoComplPop'
     Plug 'alvan/vim-closetag'
-
-    " javascript syntax
     Plug 'mattn/emmet-vim'
     Plug 'pangloss/vim-javascript'
     Plug 'elzr/vim-json'
     Plug 'MaxMEllon/vim-jsx-pretty'
-
-    " Django snippets
-    " Plug 'ycm-core/YouCompleteMe'
-    Plug 'tweekmonster/django-plus.vim'
-
-    " React snippets
-    " Plug 'SirVer/ultisnips'
-    " Plug 'mlaursen/vim-react-snippets'
-
-    " Snippets of various languages
-    " Plug 'honza/vim-snippets'
-    " Plug 'hrsh7th/vim-vsnip'
-    " Plug 'hrsh7th/vim-vsnip-integ'
-
     Plug 'tzachar/cmp-tabnine', { 'do': './install.sh' }
-
     Plug 'groenewege/vim-less', { 'for': 'less' }
     Plug 'kchmck/vim-coffee-script', { 'for': 'coffee' }
-
     Plug 'godlygeek/tabular'
     Plug 'elzr/vim-json'
-    " Plug 'plasticboy/vim-markdown'
-
 
     if has("nvim")
         Plug 'neoclide/coc.nvim', {'branch': 'release'}
         Plug 'neoclide/coc-html'
         Plug 'yaegassy/coc-htmldjango', {'do': 'yarn install --frozen-lockfile'}
-
         Plug 'nvim-telescope/telescope-file-browser.nvim'
         Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
         Plug 'vim-airline/vim-airline'
@@ -116,7 +93,6 @@ call plug#begin('~/.config/nvim/')
         Plug 'neovim/nvim-lspconfig'
         Plug 'tami5/lspsaga.nvim', { 'branch': 'nvim51' }
         Plug 'folke/lsp-colors.nvim'
-    
         Plug 'hrsh7th/cmp-nvim-lsp'
         Plug 'hrsh7th/cmp-buffer'
         Plug 'hrsh7th/nvim-cmp'
@@ -128,10 +104,8 @@ call plug#begin('~/.config/nvim/')
         Plug 'nvim-telescope/telescope.nvim'
         Plug 'nvim-telescope/telescope-fzy-native.nvim'
         Plug 'nvim-tree/nvim-web-devicons'
-        " Plug 'windwp/nvim-autopairs'
         Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
         Plug 'junegunn/fzf.vim'
-    
         Plug 'sbdchd/neoformat'
         Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
     
@@ -145,17 +119,17 @@ call plug#begin('~/.config/nvim/')
         Plug 'onsails/lspkind-nvim'
     
         " For vsnip users.
-        Plug 'hrsh7th/cmp-vsnip'
-        Plug 'hrsh7th/vim-vsnip'
+        " Plug 'hrsh7th/cmp-vsnip'
+        " Plug 'hrsh7th/vim-vsnip'
         
         " For luasnip users.
         Plug 'L3MON4D3/LuaSnip'
         Plug 'saadparwaiz1/cmp_luasnip'
         
         " For ultisnips users.
-        Plug 'SirVer/ultisnips'
-        Plug 'quangnguyen30192/cmp-nvim-ultisnips'
-        Plug 'honza/vim-snippets'
+        " Plug 'SirVer/ultisnips'
+        " Plug 'quangnguyen30192/cmp-nvim-ultisnips'
+        " Plug 'honza/vim-snippets'
         
         " For snippy users.
         " Plug 'dcampos/nvim-snippy'
@@ -493,47 +467,48 @@ let g:mkdp_filetypes = ['markdown']
       
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
 lua << EOF
-local tabnine = require('cmp_tabnine.config')
+  local mini_indent = require('mini.indentscope').setup()
 
-local lspkind = require('lspkind')
-
-local source_mapping = {
-	buffer = "[Buffer]",
-	nvim_lsp = "[LSP]",
-	nvim_lua = "[Lua]",
-	cmp_tabnine = "[TN]",
-	path = "[Path]",
-}
-
-require'cmp'.setup {
-	sources = {
-		{ name = 'cmp_tabnine' },
-		{ name = 'buffer' },
-		{ name = 'path' },
-	},
-	formatting = {
-		format = function(entry, vim_item)
-			-- if you have lspkind installed, you can use it like
-			-- in the following line:
-	 		vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
-	 		vim_item.menu = source_mapping[entry.source.name]
-	 		if entry.source.name == "cmp_tabnine" then
-	 			local detail = (entry.completion_item.data or {}).detail
-	 			vim_item.kind = ""
-	 			if detail and detail:find('.*%%.*') then
-	 				vim_item.kind = vim_item.kind .. ' ' .. detail
-	 			end
-
-	 			if (entry.completion_item.data or {}).multiline then
-	 				vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
-	 			end
-	 		end
-	 		local maxwidth = 80
-	 		vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
-	 		return vim_item
-	  end,
-	},
-}
+  local tabnine = require('cmp_tabnine.config')
+  local lspkind = require('lspkind')
+  
+  local source_mapping = {
+  	buffer = "[Buffer]",
+  	nvim_lsp = "[LSP]",
+  	nvim_lua = "[Lua]",
+  	cmp_tabnine = "[TN]",
+  	path = "[Path]",
+  }
+  
+  require'cmp'.setup {
+  	sources = {
+  		{ name = 'cmp_tabnine' },
+  		{ name = 'buffer' },
+  		{ name = 'path' },
+  	},
+  	formatting = {
+  		format = function(entry, vim_item)
+  			-- if you have lspkind installed, you can use it like
+  			-- in the following line:
+  	 		vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+  	 		vim_item.menu = source_mapping[entry.source.name]
+  	 		if entry.source.name == "cmp_tabnine" then
+  	 			local detail = (entry.completion_item.data or {}).detail
+  	 			vim_item.kind = ""
+  	 			if detail and detail:find('.*%%.*') then
+  	 				vim_item.kind = vim_item.kind .. ' ' .. detail
+  	 			end
+  
+  	 			if (entry.completion_item.data or {}).multiline then
+  	 				vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
+  	 			end
+  	 		end
+  	 		local maxwidth = 80
+  	 		vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+  	 		return vim_item
+  	  end,
+  	},
+  }
 
 EOF
 
