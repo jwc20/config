@@ -118,7 +118,8 @@ vi ~/.config/nvim/init.vim
 Change python host:
 
 ```
-# Rempve this line: let g:python3_host_prog = '/opt/homebrew/bin/python3'
+# Remove this line: let g:python3_host_prog = '/opt/homebrew/bin/python3'
+# add the line:
 let g:python3_host_prog = '/usr/bin/python3'
 ```
 
@@ -129,4 +130,4 @@ Install all the plugins inside neovim:
 :UpdateRemotePlugin
 ```
 
-Note: Some tools don't work with Ubuntu for ARM like telescope.nvim and lazygit.
+Note: Some tools don't work with Ubuntu inside macOS ARM like brew, telescope.nvim, and lazygit.
