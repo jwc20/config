@@ -21,7 +21,7 @@ set shortmess=I
 set t_Co=256
 set smarttab
 set cursorcolumn
-set foldmethod=indent 
+set foldmethod=indent
 
 
 hi CursorColumn cterm=NONE ctermbg=8 ctermfg=NONE
@@ -144,9 +144,15 @@ call plug#end()
 " Mappings
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" fold/unfold
+nnoremap <space> za
+vnoremap <space> zf
+
+" unfold recursively
+nnoremap <leader>O zczA 
+
 " :W -> :w
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
-
 
 nnoremap <leader>mm <cmd>MarkdownPreview<CR>
 
