@@ -493,150 +493,47 @@ let g:mkdp_filetypes = ['markdown']
       
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
 lua << EOF
-  require('telescope').setup{ defaults = { file_ignore_patterns = {"node_modules", "venv"} } } 
-  require("telescope").load_extension "file_browser"
+local tabnine = require('cmp_tabnine.config')
 
-  require('mini.indentscope').setup()
+local lspkind = require('lspkind')
 
-  local tabnine = require("cmp_tabnine.config")
-  local cmp = require("cmp")
-  vim.opt.completeopt = "menu,menuone,noselect"
+local source_mapping = {
+	buffer = "[Buffer]",
+	nvim_lsp = "[LSP]",
+	nvim_lua = "[Lua]",
+	cmp_tabnine = "[TN]",
+	path = "[Path]",
+}
 
-  local lspkind = require'lspkind'
-  -- local luasnip = require("luasnip")
+require'cmp'.setup {
+	sources = {
+		{ name = 'cmp_tabnine' },
+		{ name = 'buffer' },
+		{ name = 'path' },
+	},
+	formatting = {
+		format = function(entry, vim_item)
+			-- if you have lspkind installed, you can use it like
+			-- in the following line:
+	 		vim_item.kind = lspkind.symbolic(vim_item.kind, {mode = "symbol"})
+	 		vim_item.menu = source_mapping[entry.source.name]
+	 		if entry.source.name == "cmp_tabnine" then
+	 			local detail = (entry.completion_item.data or {}).detail
+	 			vim_item.kind = ""
+	 			if detail and detail:find('.*%%.*') then
+	 				vim_item.kind = vim_item.kind .. ' ' .. detail
+	 			end
 
-  -- if not luasnip then
-  --   return
-  -- end
-
-  local lsp_symbols = {
-    Text = "   (Text) ",
-    Method = "   (Method)",
-    Function = "   (Function)",
-    Constructor = "   (Constructor)",
-    Field = " ﴲ  (Field)",
-    Variable = "[] (Variable)",
-    Class = "   (Class)",
-    Interface = " ﰮ  (Interface)",
-    Module = "   (Module)",
-    Property = " 襁 (Property)",
-    Unit = "   (Unit)",
-    Value = "   (Value)",
-    Enum = " 練 (Enum)",
-    Keyword = "   (Keyword)",
-    Snippet = "   (Snippet)",
-    Color = "   (Color)",
-    File = "   (File)",
-    Reference = "   (Reference)",
-    Folder = "   (Folder)",
-    EnumMember = "   (EnumMember)",
-    Constant = " ﲀ  (Constant)",
-    Struct = " ﳤ  (Struct)",
-    Event = "   (Event)",
-    Operator = "   (Operator)",
-    TypeParameter = "   (TypeParameter)"
-  }
-  
-  cmp.setup(
-    {
-      snippet = {
-        expand = function(args)
-          require("luasnip").lsp_expand(args.body)
-          -- vim.fn["vsnip#anonymous"](args.body)
-          -- vim.fn["UltiSnips#Anon"](args.body)
-
-        end
-      },
-      mapping = {
-        ["<C-p>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = cmp.mapping.select_next_item(),
-        ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-        ["<C-f>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
-        ["<C-e>"] = cmp.mapping.close(),
-        ["<CR>"] = cmp.mapping.confirm {
-          behavior = cmp.ConfirmBehavior.Replace,
-          select = true
-        },
-        ["<Tab>"] = function(fallback)
-          if cmp.visible() then
-            cmp.select_next_item()
-          elseif require("luasnip").expand_or_jumpable() then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-expand-or-jump", true, true, true), "")
-          else
-            fallback()
-          end
-        end,
-        ["<S-Tab>"] = function(fallback)
-          if cmp.visible() then
-            cmp.select_prev_item()
-          elseif require("luasnip").jumpable(-1) then
-            vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<Plug>luasnip-jump-prev", true, true, true), "")
-          else
-            fallback()
-          end
-        end,
-        ["<cr>"] = cmp.mapping.confirm({select = true})
-      },
-      -- formatting = {
-      --   format = function(entry, item)
-      --     item.kind = lsp_symbols[item.kind] .. " " .. item.kind
-      --     -- set a name for each source
-      --     item.menu =
-      --       ({
-      --       spell = "[Spell]",
-      --       buffer = "[Buffer]",
-      --       calc = "[Calc]",
-      --       emoji = "[Emoji]",
-      --       nvim_lsp = "[LSP]",
-      --       path = "[Path]",
-      --       look = "[Look]",
-      --       treesitter = "[treesitter]",
-      --       luasnip = "[LuaSnip]",
-      --       nvim_lua = "[Lua]",
-      --       latex_symbols = "[Latex]",
-      --       cmp_tabnine = "[Tab9]"
-      --     })[entry.source.name]
-      --     return item
-      --   end
-      -- },
-      sources = {
-        {name = "nvim_lsp"},
-        {name = "vsnip"},
-        {name = "path"},
-        {name = "luasnip"},
-        {name = "ultisnips"},
-        {name = "buffer"},
-        {name = "nvim_lua"},
-        {name = "treesitter"},
-        {name = "spell"},
-        {name = "calc"},
-        {name = "emoji"},
-        {name = "look"},
-        {name = "latex_symbols"},
-        {name = "cmp_tabnine"},
-        {name = "neorg"},
-        {name = "cmp_luasnip"}
-      }
-    }
-  )
-  
-    -- vim.cmd([[
-    --     augroup NvimCmp
-    --     au!
-    --     au FileType TelescopePrompt lua require('cmp').setup.buffer { enabled = false }
-    --     augroup END
-    -- ]])
-  
-
-  tabnine:setup(
-    {
-      max_lines = 1000,
-      max_num_results = 20,
-      sort = true,
-      run_on_every_keystroke = true
-    }
-  )
+	 			if (entry.completion_item.data or {}).multiline then
+	 				vim_item.kind = vim_item.kind .. ' ' .. '[ML]'
+	 			end
+	 		end
+	 		local maxwidth = 80
+	 		vim_item.abbr = string.sub(vim_item.abbr, 1, maxwidth)
+	 		return vim_item
+	  end,
+	},
+}
 
 EOF
 
