@@ -121,8 +121,8 @@ call plug#begin('~/.config/nvim/')
         Plug 'onsails/lspkind-nvim'
     
         " For vsnip users.
-        " Plug 'hrsh7th/cmp-vsnip'
-        " Plug 'hrsh7th/vim-vsnip'
+        Plug 'hrsh7th/cmp-vsnip'
+        Plug 'hrsh7th/vim-vsnip'
         
         " For luasnip users.
         Plug 'L3MON4D3/LuaSnip'
@@ -149,7 +149,7 @@ nnoremap <space> za
 vnoremap <space> zf
 
 " unfold recursively
-nnoremap <leader>O zczA 
+nnoremap <leader>oo zczA 
 
 " :W -> :w
 cnoreabbrev <expr> W ((getcmdtype() is# ':' && getcmdline() is# 'W')?('w'):('W'))
