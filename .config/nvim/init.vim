@@ -479,6 +479,8 @@ lua << EOF
 
   local tabnine = require('cmp_tabnine.config')
   local lspkind = require('lspkind')
+
+  require'lspconfig'.pyright.setup{}
   
   local source_mapping = {
   	buffer = "[Buffer]",
