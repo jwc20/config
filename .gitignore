@@ -1,5 +1,8 @@
 /mpv-build
 
+# QtPy
+.designer
+
 .gitconfig
 .config/coc
 .config/configstore
