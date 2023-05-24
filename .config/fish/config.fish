@@ -12,7 +12,6 @@ set -g theme_hostname always
 alias vi='nvim'
 alias lg='lazygit'
 alias lzd='lazydocker'
-alias ls='ls'
 alias cl='clear'
 alias mp='multipass'
 fzf_configure_bindings --directory=\cf --variables=\cv --git_log=\cl --git_status=\cs --history=\ch --processes=\cp
