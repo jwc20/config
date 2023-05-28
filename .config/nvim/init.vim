@@ -296,6 +296,11 @@ call defx#custom#option('_', {
 " Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:OmniSharp_server_use_mono = 1
+
+" Use the stdio version of OmniSharp-roslyn - this is the default
+let g:OmniSharp_server_stdio = 1
+
 " disable header folding
 let g:vim_markdown_folding_disabled = 1
 
