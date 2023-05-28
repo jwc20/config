@@ -57,6 +57,7 @@ augroup END
 " Plugs
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/')
+    Plug 'OmniSharp/omnisharp-vim'
     Plug 'github/copilot.vim'
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'tpope/vim-commentary'
@@ -147,6 +148,7 @@ call plug#end()
 " fold/unfold
 nnoremap <space> za
 vnoremap <space> zf
+" Note: to unfold all: zR
 
 " unfold recursively
 nnoremap <leader>oo zczA 
