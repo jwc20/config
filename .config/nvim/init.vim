@@ -58,7 +58,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/')
     Plug 'OmniSharp/omnisharp-vim'
-    Plug 'github/copilot.vim'
+    " Plug 'github/copilot.vim'
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'tpope/vim-commentary'
     Plug 'lervag/vimtex'
@@ -295,7 +295,7 @@ call defx#custom#option('_', {
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Config
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+let g:OmniSharp_msbuild_exe_path = '/usr/local/share/dotnet'
 let g:OmniSharp_server_use_mono = 1
 
 " Use the stdio version of OmniSharp-roslyn - this is the default
