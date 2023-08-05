@@ -21,7 +21,7 @@ set shortmess=I
 set t_Co=256
 set smarttab
 set cursorcolumn
-set foldmethod=indent
+" set foldmethod=indent
 
 
 hi CursorColumn cterm=NONE ctermbg=8 ctermfg=NONE
