@@ -86,7 +86,7 @@ call plug#begin('~/.config/nvim/')
         Plug 'neoclide/coc-html'
         Plug 'yaegassy/coc-htmldjango', {'do': 'yarn install --frozen-lockfile'}
         Plug 'nvim-telescope/telescope-file-browser.nvim'
-        Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
+        " Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
         Plug 'vim-airline/vim-airline'
         Plug 'vim-airline/vim-airline-themes'
         Plug 'hoob3rt/lualine.nvim'
@@ -485,7 +485,6 @@ let g:mkdp_filetypes = ['markdown']
       
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
 lua << EOF
-  local mini_indent = require('mini.indentscope').setup()
 
   local tabnine = require('cmp_tabnine.config')
   local lspkind = require('lspkind')
