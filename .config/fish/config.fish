@@ -28,3 +28,6 @@ starship init fish | source
 
 # fzf.fish
 set fzf_fd_opts --hidden --exclude=.git
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc' ]; . '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc'; end
