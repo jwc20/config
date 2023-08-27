@@ -8,6 +8,9 @@ set -g theme_display_user yes
 set -g theme_hide_hostname no
 set -g theme_hostname always
 
+set -Ux PYENV_ROOT $HOME/.pyenv
+set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
+
 # alias and commands
 alias vi='nvim'
 alias lg='lazygit'
@@ -31,3 +34,5 @@ set fzf_fd_opts --hidden --exclude=.git
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc' ]; . '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc'; end
+
+
