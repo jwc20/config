@@ -1,9 +1,11 @@
+.boto
 /mpv-build
 
 # QtPy
 .designer
 
 .gitconfig
+.config/gcloud
 .config/coc
 .config/configstore
 .config/expressvpn
