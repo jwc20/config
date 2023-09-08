@@ -1,3 +1,7 @@
+.AzureToolsForIntelliJ/
+.nuget/
+.templateengine
+
 .swiftpm
 .boto
 /mpv-build
