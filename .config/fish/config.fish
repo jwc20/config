@@ -36,3 +36,7 @@ set fzf_fd_opts --hidden --exclude=.git
 if [ -f '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc' ]; . '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc'; end
 
 
+
+# bun
+set --export BUN_INSTALL "$HOME/Library/Application Support/reflex/bun"
+set --export PATH $BUN_INSTALL/bin $PATH
