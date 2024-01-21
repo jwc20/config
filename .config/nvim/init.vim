@@ -486,18 +486,18 @@ let g:mkdp_filetypes = ['markdown']
 " https://github.com/Yoliani/YetAnotherNeovimConfig/blob/test/lua/plugins/cmp.lua
 lua << EOF
 
-  local tabnine = require('cmp_tabnine.config')
-  local lspkind = require('lspkind')
+  -- local tabnine = require('cmp_tabnine.config')
+  -- local lspkind = require('lspkind')
 
   require'lspconfig'.pyright.setup{}
   
-  local source_mapping = {
-  	buffer = "[Buffer]",
-  	nvim_lsp = "[LSP]",
-  	nvim_lua = "[Lua]",
-  	cmp_tabnine = "[TN]",
-  	path = "[Path]",
-  }
+  -- local source_mapping = {
+  -- 	buffer = "[Buffer]",
+  -- 	nvim_lsp = "[LSP]",
+  -- 	nvim_lua = "[Lua]",
+  -- 	cmp_tabnine = "[TN]",
+  -- 	path = "[Path]",
+  -- }
   
 
   local cmp = require'cmp'
@@ -518,11 +518,11 @@ lua << EOF
       ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
     }),
 
-    sources = cmp.config.sources({
-      { name = 'cmp_tabnine' },
-  		{ name = 'buffer' },
-  		{ name = 'path' },
-    }), 
+    -- sources = cmp.config.sources({
+    --   { name = 'cmp_tabnine' },
+  	-- 	{ name = 'buffer' },
+  	-- 	{ name = 'path' },
+    -- }), 
 
   	formatting = {
   		format = function(entry, vim_item)
