@@ -11,6 +11,8 @@ set -g theme_hostname always
 set -Ux PYENV_ROOT $HOME/.pyenv
 set -U fish_user_paths $PYENV_ROOT/bin $fish_user_paths
 
+set -gx PATH $PATH /Users/cjw/.rvm/rubies/ruby-2.7.4/lib/ruby/gems/2.7.0/gems/cocoapods-1.15.0/lib/cocoapods.rb
+
 # alias and commands
 alias vi='nvim'
 alias lg='lazygit'
@@ -34,8 +36,6 @@ set fzf_fd_opts --hidden --exclude=.git
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc' ]; . '/Users/cjw/Documents/google-cloud-sdk/path.fish.inc'; end
-
-
 
 # bun
 set --export BUN_INSTALL "$HOME/Library/Application Support/reflex/bun"
