@@ -58,7 +58,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 call plug#begin('~/.config/nvim/')
     Plug 'OmniSharp/omnisharp-vim'
-    " Plug 'github/copilot.vim'
+    Plug 'github/copilot.vim'
     Plug 'Vimjas/vim-python-pep8-indent'
     Plug 'tpope/vim-commentary'
     Plug 'lervag/vimtex'
@@ -82,9 +82,9 @@ call plug#begin('~/.config/nvim/')
     Plug 'elzr/vim-json'
 
     if has("nvim")
-        Plug 'neoclide/coc.nvim', {'branch': 'release'}
-        Plug 'neoclide/coc-html'
-        Plug 'yaegassy/coc-htmldjango', {'do': 'yarn install --frozen-lockfile'}
+        " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+        " Plug 'neoclide/coc-html'
+        " Plug 'yaegassy/coc-htmldjango', {'do': 'yarn install --frozen-lockfile'}
         Plug 'nvim-telescope/telescope-file-browser.nvim'
         " Plug 'echasnovski/mini.nvim', { 'branch': 'stable' }
         Plug 'vim-airline/vim-airline'
@@ -178,7 +178,7 @@ nnoremap <leader>Z :w !python3 %<CR>
 nnoremap <leader>z :execute "!source venv/bin/activate.fish && python3 " . expand("%:p")<CR>
 
 " coc djlint format
-nnoremap <silent> <LocalLeader>djf :CocCommand htmldjango.djlint.format<CR>
+" nnoremap <silent> <LocalLeader>djf :CocCommand htmldjango.djlint.format<CR>
 
 " Buffer 
 nnoremap <silent> <LocalLeader>[ :bp<CR>
@@ -329,7 +329,7 @@ let g:python_pep8_indent_hang_closing = 0
 " Use homebrew's clangd
 let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
 
-let g:python3_host_prog = '/opt/homebrew/bin/python3'
+let g:python3_host_prog = '/opt/homebrew/bin/python3.11.8'
 
 " Enable rufo (RUby FOrmat)
 let g:rufo_auto_formatting = 1
