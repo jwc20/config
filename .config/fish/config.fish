@@ -45,5 +45,6 @@ function git_status_current_dir
     end
 end
 
+alias brew="env PATH=(string replace (pyenv root)/shims '' \"\$PATH\") brew"
 
 starship init fish | source
