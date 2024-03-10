@@ -329,7 +329,7 @@ let g:python_pep8_indent_hang_closing = 0
 " Use homebrew's clangd
 let g:ycm_clangd_binary_path = trim(system('brew --prefix llvm')).'/bin/clangd'
 
-# Neovim will use python3.11
+" Neovim will use python3.11
 let g:python3_host_prog = '/opt/homebrew/bin/python3.11'
 
 " Enable rufo (RUby FOrmat)
