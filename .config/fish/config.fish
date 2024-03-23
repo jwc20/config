@@ -47,4 +47,11 @@ end
 
 alias brew="env PATH=(string replace (pyenv root)/shims '' \"\$PATH\") brew"
 
+
+# set -Ux PYENV_ROOT $HOME/.pyenv
+# fish_add_path $PYENV_ROOT/bin
+
+pyenv init - | source
+status --is-interactive; and source (pyenv virtualenv-init -|psub) 
+
 starship init fish | source

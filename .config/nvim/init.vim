@@ -175,7 +175,11 @@ noremap <leader>/ :Commentary<cr>
 " nmap \z :w !python3 <CR>
 nnoremap <leader>Z :w !python3 %<CR>
 " Note the venv must be in the same directory as the file
-nnoremap <leader>z :execute "!source venv/bin/activate.fish && python3 " . expand("%:p")<CR>
+" nnoremap <leader>z :execute "!source venv/bin/activate.fish && python3 " . expand("%:p")<CR>
+
+" use pyenv to run python
+" . ~/.pyenv/versions/venv312/bin/activate
+nnoremap <leader>z :execute "!source ~/.pyenv/versions/venv312/bin/activate.fish " . expand("%:p")<CR>
 
 " coc djlint format
 " nnoremap <silent> <LocalLeader>djf :CocCommand htmldjango.djlint.format<CR>

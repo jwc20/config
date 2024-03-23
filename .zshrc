@@ -6,3 +6,11 @@ export NVM_DIR="$HOME/.nvm"
 # Do not modify - this code loads the Ruby Version Manager
 # PATH="$GEM_HOME/bin:$HOME/.rvm/bin:$PATH"
 # [ -s ${HOME}/.rvm/scripts/rvm ] && source ${HOME}/.rvm/scripts/rvm
+
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
