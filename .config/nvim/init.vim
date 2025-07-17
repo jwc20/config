@@ -458,9 +458,9 @@ let g:OmniSharp_server_stdio = 1
 
 " Python configuration
 let g:python_pep8_indent_hang_closing = 0
-let g:python3_host_prog = '/opt/homebrew/bin/python3.11'
+let g:python3_host_prog = '/opt/homebrew/bin/python3'
 let g:neoformat_enabled_python = ['black']
-let g:syntastic_python_checkers=['mypy']
+" let g:syntastic_python_checkers=['mypy']
 
 " Markdown configuration
 let g:vim_markdown_folding_disabled = 1
@@ -592,6 +592,27 @@ require("mason").setup({
   }
 })
 
+-- Setup fidget for LSP progress
+require('fidget').setup({
+  notification = {
+    window = {
+      winblend = 0,
+    },
+  },
+})
+
+
+-- Treesitter configuration
+require('nvim-treesitter.configs').setup({
+  ensure_installed = { "python", "lua", "javascript", "typescript", "html", "css" },
+  highlight = {
+    enable = true,
+  },
+  indent = {
+    enable = true,
+  },
+})
+
 ----------------------------------
 -- LSP Server Configuration
 ----------------------------------
@@ -616,14 +637,36 @@ local on_attach = function(client, bufnr)
   vim.keymap.set('n', '<leader>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 
   -- Highlight references on cursor hold if server supports it
-  local function has_document_highlight()
+  local function has_document_highlight(bufnr)
     local clients = vim.lsp.get_clients({ bufnr = bufnr })
     for _, client in ipairs(clients) do
-      if client.server_capabilities.documentHighlightProvider then
+      if client.supports_method("textDocument/documentHighlight") then
         return true
       end
     end
     return false
+  end
+
+  -- Create autocmd group
+  local group = vim.api.nvim_create_augroup("lsp_document_highlight", { clear = false })
+  vim.api.nvim_clear_autocmds({ group = group, buffer = bufnr })
+  
+  if has_document_highlight(bufnr) then
+    vim.api.nvim_create_autocmd("CursorHold", {
+      callback = function()
+        vim.lsp.buf.document_highlight()
+      end,
+      buffer = bufnr,
+      group = group,
+    })
+    
+    vim.api.nvim_create_autocmd({ "CursorMoved", "InsertEnter" }, {
+      callback = function()
+        vim.lsp.buf.clear_references()
+      end,
+      buffer = bufnr,
+      group = group,
+    })
   end
 
   vim.api.nvim_create_augroup("lsp_document_highlight", { clear = true })
@@ -784,9 +827,19 @@ vim.api.nvim_create_autocmd("FileType", {
         client.notify("workspace/didChangeConfiguration", {
           settings = client.config.settings
         })
-        print("Python environment set to: " .. venv)
+        -- print("Python environment set to: " .. venv)
       end
     end
+
+    local cmp = require('cmp')
+    cmp.setup.buffer({
+      sources = cmp.config.sources({
+        { name = 'nvim_lsp' },
+        { name = 'luasnip' },
+        { name = 'path' },
+        -- Explicitly exclude buffer source for Python
+      })
+    })
   end
 })
 
@@ -909,8 +962,10 @@ cmp.setup({
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp', priority = 1000 },
-    { name = has_luasnip and 'luasnip' or '', priority = 750 },
-    { name = 'buffer', priority = 500 },
+    { name = has_luasnip and 'luasnip' or nil, priority = 750 }, -- Fixed: use nil instead of ''
+  }, {
+    -- Fallback sources (only used when primary sources have no results)
+    { name = 'buffer', priority = 500, keyword_length = 3 }, -- Added keyword_length to reduce noise
     { name = 'path', priority = 250 },
   }),
   formatting = {
@@ -926,14 +981,39 @@ cmp.setup({
         path = "[Path]",
       })[entry.source.name]
       
+      -- Remove duplicates by truncating identical text
+      vim_item.dup = 0
+      
       return vim_item
     end
   },
+  -- Add duplicate filtering
+  sorting = {
+    comparators = {
+      cmp.config.compare.offset,
+      cmp.config.compare.exact,
+      cmp.config.compare.score,
+      cmp.config.compare.recently_used,
+      cmp.config.compare.locality,
+      cmp.config.compare.kind,
+      cmp.config.compare.sort_text,
+      cmp.config.compare.length,
+      cmp.config.compare.order,
+    },
+  },
+  -- Improved duplicate handling
+  completion = {
+    completeopt = 'menu,menuone,noinsert',
+  },
   -- Enable experimental native completion
   experimental = {
-    ghost_text = true,
+    ghost_text = { hl_group = 'Comment' }, -- Better ghost text configuration
   },
 })
+
+
+
+
 
 -- Set up completion for command mode
 cmp.setup.cmdline('/', {
