@@ -64,7 +64,7 @@
 " *                   - Toggle all selections
 " h                   - Go to parent directory
 " q                   - Close Defx
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GENERAL SETTINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set encoding=UTF-8
@@ -135,6 +135,9 @@ set si "Smart indent
 call plug#begin('~/.config/nvim/')
     " Colorscheme
     Plug 'catppuccin/nvim', { 'as': 'catppuccin' }
+    Plug 'olimorris/onedarkpro.nvim'
+    Plug 'uloco/bluloco.nvim'
+    Plug 'rktjmp/lush.nvim'
     
     " Language support & code quality
     Plug 'OmniSharp/omnisharp-vim'                          " C# support
@@ -555,7 +558,9 @@ let g:mkdp_filetypes = ['markdown']
 "   autocmd CursorMoved * lua vim.lsp.buf.clear_references()
 " augroup END
 
-colorscheme catppuccin-frappe " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+colorscheme catppuccin-mocha " catppuccin-latte, catppuccin-frappe, catppuccin-macchiato, catppuccin-mocha
+" colorscheme onelight
+
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -612,7 +617,7 @@ local on_attach = function(client, bufnr)
 
   -- Highlight references on cursor hold if server supports it
   local function has_document_highlight()
-    local clients = vim.lsp.get_active_clients({ bufnr = bufnr })
+    local clients = vim.lsp.get_clients({ bufnr = bufnr })
     for _, client in ipairs(clients) do
       if client.server_capabilities.documentHighlightProvider then
         return true
@@ -773,7 +778,7 @@ vim.api.nvim_create_autocmd("FileType", {
       vim.b.python_host_prog = venv .. "/bin/python"
       
       -- Inform Pyright about this environment
-      local client = vim.lsp.get_active_clients({name = "pyright"})[1]
+      local client = vim.lsp.get_clients({name = "pyright"})[1]
       if client then
         client.config.settings.python.pythonPath = venv .. "/bin/python"
         client.notify("workspace/didChangeConfiguration", {
@@ -826,12 +831,6 @@ lspconfig.cssls.setup({
 lspconfig.jsonls.setup({
   capabilities = capabilities,
   on_attach = on_attach,
-  settings = {
-    json = {
-      -- Remove schemastore dependency
-      validate = { enable = true },
-    },
-  },
 })
 
 
@@ -975,7 +974,7 @@ vim.api.nvim_create_user_command("PythonSetEnv", function(opts)
   -- Set it for both buffer and Pyright
   vim.b.python_host_prog = path
   
-  local client = vim.lsp.get_active_clients({name = "pyright"})[1]
+  local client = vim.lsp.get_clients({name = "pyright"})[1]
   if client then
     client.config.settings.python.pythonPath = path
     client.notify("workspace/didChangeConfiguration", {
