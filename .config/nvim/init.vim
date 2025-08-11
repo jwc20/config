@@ -117,6 +117,8 @@ nnoremap <silent> <C-n> :Telescope file_browser path=%:p:h<cr>
 " FZF fallback
 nnoremap <silent> <leader>o :All<cr>
 
+nnoremap <silent> <LocalLeader>pp :!uv run %<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " AIRLINE CONFIGURATION (SIMPLIFIED)
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
