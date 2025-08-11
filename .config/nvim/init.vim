@@ -62,7 +62,7 @@ call plug#begin('~/.config/nvim/')
     Plug 'mason-org/mason.nvim', { 'on': [] }
     Plug 'mason-org/mason-lspconfig.nvim', { 'on': [] }
     Plug 'WhoIsSethDaniel/mason-tool-installer.nvim', { 'on': [] }
-    Plug 'jose-elias-alvarez/null-ls.nvim', { 'on': [] }
+    Plug 'nvimtools/none-ls.nvim', { 'on': [] }
     Plug 'hrsh7th/nvim-cmp', { 'on': [] }
     Plug 'hrsh7th/cmp-nvim-lsp', { 'on': [] }
     Plug 'hrsh7th/cmp-buffer', { 'on': [] }
@@ -140,7 +140,7 @@ function! s:load_completion()
         \ 'mason.nvim',
         \ 'mason-lspconfig.nvim',
         \ 'mason-tool-installer.nvim',
-        \ 'null-ls.nvim',
+        \ 'none-ls.nvim',
         \ 'nvim-cmp',
         \ 'cmp-nvim-lsp',
         \ 'cmp-buffer',
