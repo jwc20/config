@@ -29,11 +29,11 @@ alias python='python3'
 alias pip='pip3'
 alias lg='lazygit'
 alias lzd='lazydocker'
+alias lzn='lazynpm'
 alias cl='clear'
 alias mp='multipass'
 alias dcu='docker-compose up -d --build'
 alias dcd='docker-compose down'
-
 
 alias claude='sudo SHELL=/bin/bash claude'
 
